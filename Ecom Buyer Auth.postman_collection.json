@@ -1,0 +1,389 @@
+{
+	"info": {
+		"_postman_id": "310c9128-2343-4bc1-95be-e72f50f01e82",
+		"name": "Ecom Buyer Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication & Authorization",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sakther53@yahoo.com\",\r\n    \"name\":\"Shamima\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/signup",
+						"description": "Objective: As a tester, I want to create a new account with proper information. <br>\n\nExpected result: It should create a new account. <br>\n\nActult result: It created a new account successfully. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "OTP verify",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"ok\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\":\"247023\",\r\n    \"email\":\"sakther53@yahoo.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/verifyotp",
+						"description": "Objective: As a tester, I should receive the OTP code. <br>\n\nExpected result: It was sent to my email. <br>\n\nActult result: Verified the code successfully. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "resend OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"funnytom92@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/resendotp"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Buyer logged in successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sakther53@yahoo.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/signin",
+						"description": "Objective: As a tester, I login to my account with proper information. <br>\n\nExpected result: It should be able to login. <br>\n\nActult result: It was able to login successfully. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "Login without email address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Buyer logged in successfully\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/signin",
+						"description": "Objective: As a tester, without the email address I should not be able to login. <br>\n\nExpected result: It should login to the account without the email address. <br>\n\nActual result: It did not login without the email address. (404 code not found). <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "verify token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Token is verified\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg5M2RkMTdmOWY0NzAzY2NlOWJjYjIiLCJyb2xlIjoidXNlciIsImVtYWlsIjoic2FrdGhlcjUzQHlhaG9vLmNvbSIsImlhdCI6MTYzNjM4NDI5OSwiZXhwIjoxNjM2NDcwNjk5fQ.ECshnrkwXb0vmNsEXO34J4WApYHup-j5UN7XphrN5No"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{URL}}/user/verify"
+					},
+					"response": []
+				},
+				{
+					"name": "update account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg5M2RkMTdmOWY0NzAzY2NlOWJjYjIiLCJyb2xlIjoidXNlciIsImVtYWlsIjoic2FrdGhlcjUzQHlhaG9vLmNvbSIsImlhdCI6MTYzNjM4NDI5OSwiZXhwIjoxNjM2NDcwNjk5fQ.ECshnrkwXb0vmNsEXO34J4WApYHup-j5UN7XphrN5No"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Shamima\",\r\n    \"mobile\":\"\",\r\n    \"contactNumber\":\"5864816375\",\r\n    \"gender\":\"Female\",\r\n    \"birthDate\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/update",
+						"description": "Objective: As a tester, update my phone number. <br>\n\nExpected result: It should update the phone number. <br>\n\nActual result: It update the phone number successfully. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "change profile image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg5M2RkMTdmOWY0NzAzY2NlOWJjYjIiLCJyb2xlIjoidXNlciIsImVtYWlsIjoic2FrdGhlcjUzQHlhaG9vLmNvbSIsImlhdCI6MTYzNjM4NDI5OSwiZXhwIjoxNjM2NDcwNjk5fQ.ECshnrkwXb0vmNsEXO34J4WApYHup-j5UN7XphrN5No"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile",
+									"type": "file",
+									"src": "/C:/Users/15864/Pictures/Camera Roll/placeholder.jpg"
+								}
+							]
+						},
+						"url": "{{URL}}/user/profileimage",
+						"description": "Objective: As a tester, want to update the profile picture. <br>\n\nExpected result: It should update the profile picture. <br>\n\nActual result: It update the profile picture successfully. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTg5M2RkMTdmOWY0NzAzY2NlOWJjYjIiLCJyb2xlIjoidXNlciIsImVtYWlsIjoic2FrdGhlcjUzQHlhaG9vLmNvbSIsImlhdCI6MTYzNjM4NDI5OSwiZXhwIjoxNjM2NDcwNjk5fQ.ECshnrkwXb0vmNsEXO34J4WApYHup-j5UN7XphrN5No"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\":\"123456\",\r\n    \"newPassword\":\"123457\",\r\n    \"confirmPassword\":\"123457\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/changepassword"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Buyer logged in successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sakther53@yahoo.com\",\r\n    \"password\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/signin",
+						"description": "Objective: As a tester, I should not be able login to my account without proper information. <br>\n\nExpected result: It should not login . <br>\n\nActual result: It was able to login successfully. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "register Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sakther53@yahoo.com\",\r\n    \"name\":\"\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/signup",
+						"description": "Objective: As a tester,it should not create  account without name. <br>\n\nExpected result: It should not create a new account. <br>\n\nActult result: It did not created a new account. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				},
+				{
+					"name": "OTP verify Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\":\"247023\",\r\n    \"email\":\"sakther53@yahoa.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{URL}}/user/verifyotp",
+						"description": "Objective: As a tester, I should not receive the OTP code. <br>\n\nExpected result: It should not sent to incorrect email. <br>\n\nActual result: Did not received the code. <br>\n\nTest status :passed \nTested by: Shamima \nTest reviewed: Shamima \nSE Name:"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
